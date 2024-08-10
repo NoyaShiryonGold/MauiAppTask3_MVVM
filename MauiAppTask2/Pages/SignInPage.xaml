@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MauiAppTask2.Pages.SignInPage"
+             Title="Login">
+    <ScrollView>
+        <VerticalStackLayout>
+            <!-- Top fish image -->
+            <Image Source="fidh1.png"
+                   ZIndex="0"
+                   Aspect="AspectFit"
+                   HeightRequest="200"
+                   VerticalOptions="Start"
+                   HorizontalOptions="Start" />
+            <!-- Login form -->
+            <VerticalStackLayout Padding="30,0"
+                                 Spacing="20"
+                                 ZIndex="10"
+                                 Margin="0, -100"
+                                 VerticalOptions="Center">
+                <Label Text="LOGIN"
+                       FontSize="50"
+                       TextColor="#20B2AA"
+                       HorizontalOptions="Center" />
+                <Label Text="SIGN IN TO CONTINUE"
+                       FontSize="14"
+                       TextColor="#808080"
+                       HorizontalOptions="Center"
+                       Margin="0,15,0,25"/>
+                <Entry Placeholder="Email"
+                       PlaceholderColor="#808080"
+                       TextColor="#333333" />
+                <Entry Placeholder="Password"
+                       IsPassword="True"
+                       PlaceholderColor="#808080"
+                       TextColor="#333333" />
+                <Button Text="LOGIN"
+                        BackgroundColor="#20B2AA"
+                        TextColor="White"
+                        CornerRadius="5"
+                        HeightRequest="50" />
+                <Label Text="Don't have an account? Register here"
+                       TextColor="#20B2AA"
+                       HorizontalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding RegisterCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </VerticalStackLayout>
+            <!-- Bottom coral image -->
+            <Image Margin="0, 100"
+                   Source="coral2.png"
+                   Aspect="AspectFit"
+                   HeightRequest="200"
+                   HorizontalOptions="Start"
+                   VerticalOptions="End" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

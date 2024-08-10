@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MauiAppTask2.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:DataType="model:User"
+             x:Class="MauiAppTask2.Pages.SignUpPage"
+             Title="Signup page">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label"
+                   x:Key="ErrorLabel">
+                <Setter Property="HorizontalOptions" Value="StartAndExpand"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Text" Value="Error"/>
+                <Setter Property="Margin" Value="5,0"/>
+                <Setter Property="TextColor" Value="Red"/>
+                <Setter Property="IsVisible" Value="False"/>
+            </Style>
+            <Style x:Key="ValidEntryStyle"
+                   TargetType="Entry">
+                <Setter Property="TextColor"
+                        Value="Black" />
+            </Style>
+            <Style x:Key="InvalidEntryStyle"
+                   TargetType="Entry">
+                <Setter Property="TextColor"
+                        Value="Red" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid>
+        <!-- Background images -->
+        <Image Source="seaturtle1.png"
+               HorizontalOptions="End"
+               VerticalOptions="Start"
+               WidthRequest="150" />
+        <Image Source="coral2.png"
+               HorizontalOptions="Start"
+               VerticalOptions="End"
+               WidthRequest="150"
+               Margin="5,0" />
+        <!-- Main content -->
+        <ScrollView>
+            <Grid HorizontalOptions="Center"
+                  VerticalOptions="Start"
+                  RowSpacing="5"
+                  RowDefinitions="*,*,*,*,*,*,*,*,*,*">
+                <Label Text="CREATE A NEW&#10;ACCOUNT"
+                       Grid.Row="0"
+                       FontSize="30"
+                       TextColor="#1abc9c"
+                       HorizontalOptions="Start" />
+                <HorizontalStackLayout Grid.Row="1">
+                    <Label Text="Already Registered? Login"
+                           VerticalOptions="Center"
+                           TextColor="#1abc9c" />
+                    <Button Text="HERE"
+                            Grid.Column="1"
+                            BackgroundColor="#1abc9c"
+                            TextColor="White"
+                            CornerRadius="5"
+                            Margin="10,0"
+                            Padding="10,5" />
+                </HorizontalStackLayout>
+                <VerticalStackLayout Grid.Row="2">
+                    <Border Stroke="#1abc9c"
+                            StrokeThickness="1">
+                        <Entry Placeholder="Name"
+                               TextChanged="Entry_TextChanged"
+                               Text="{Binding Name}"
+                               PlaceholderColor="#1abc9c">
+                            <Entry.Behaviors>
+                                <toolkit:TextValidationBehavior x:Name="ValidName"
+                                                                InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                                ValidStyle="{StaticResource ValidEntryStyle}"
+                                                                Flags="ValidateOnValueChanged"
+                                                                MinimumLength="2"
+                                                                MaximumLength="30" />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </Border>
+                    <Label x:Name="errlblName"
+                           Text="Please enter a valid name."
+                           Style="{StaticResource ErrorLabel}">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Source={x:Reference ValidName}, Path=IsNotValid}"
+                                         Value="True">
+                                <Setter Property="IsVisible"
+                                        Value="True" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="3">
+                    <Border Stroke="#1abc9c"
+                            StrokeThickness="1">
+                        <Entry Placeholder="Username"
+                               Text="{Binding UserName}"
+                               PlaceholderColor="#1abc9c" />
+                    </Border>
+                    <Label x:Name="errlblUserName" Style="{StaticResource ErrorLabel}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="4">
+                    <Border Stroke="#1abc9c"
+                            StrokeThickness="1">
+                        <Entry Placeholder="Phone"
+                               Text="{Binding Phone}"
+                               PlaceholderColor="#1abc9c"
+                               Keyboard="Telephone" />
+                    </Border>
+                    <Label x:Name="errlblPhone" Style="{StaticResource ErrorLabel}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="5">
+                    <Grid ColumnDefinitions="*, *"
+                          ColumnSpacing="10">
+                        <Border Grid.Column="0"
+                                Stroke="#1abc9c"
+                                HorizontalOptions="Start"
+                                StrokeThickness="1">
+                            <DatePicker Format="dd/MM/yyyy"
+                                        Date="{Binding Birthdate}"
+                                        TextColor="#1abc9c"  />
+                        </Border>
+                        <Border Grid.Column="1"
+                                Stroke="#1abc9c"
+                                StrokeThickness="1">
+                            <Label TextColor="#1abc9c"
+                                   FontSize="15"
+                                   Padding="5,0"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalTextAlignment="Center"
+                                    Text="{Binding Age,StringFormat=Age: {0} }" />
+                        </Border>
+                    </Grid>
+                    <Label x:Name="errlblDate" Style="{StaticResource ErrorLabel}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="6">
+                    <Border Stroke="#1abc9c"
+                            StrokeThickness="1">
+                        <Entry Placeholder="Email"
+                               Text="{Binding Email}"
+                               PlaceholderColor="#1abc9c"
+                               Keyboard="Email">
+                            <Entry.Behaviors>
+                                <toolkit:EmailValidationBehavior x:Name="ValidEmail" InvalidStyle="{StaticResource InvalidEntryStyle}"
+                                                                 ValidStyle="{StaticResource ValidEntryStyle}"
+                                                                 Flags="ValidateOnValueChanged" />
+                            </Entry.Behaviors>
+                        </Entry>
+                    </Border>
+                    <Label x:Name="errlblEmail"
+                           Text="Please enter a valid email."
+                           Style="{StaticResource ErrorLabel}">
+                        <Label.Triggers>
+                            <DataTrigger TargetType="Label"
+                                         Binding="{Binding Source={x:Reference ValidEmail},
+                                       Path=IsNotValid}"
+                                         Value="True">
+                                <Setter Property="IsVisible"
+                                        Value="True" />
+                            </DataTrigger>
+                        </Label.Triggers>
+                    </Label>
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="7">
+                    <Border Stroke="#1abc9c"
+                            StrokeThickness="1">
+                        <Entry x:Name="entPassword" Placeholder="Password"
+                               Text="{Binding Password}"
+                               PlaceholderColor="#1abc9c"
+                               IsPassword="True" />
+                    </Border>
+                    <Label x:Name="errlblPassword" Style="{StaticResource ErrorLabel}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="8">
+                    <Border Stroke="#1abc9c"
+                            StrokeThickness="1">
+                        <Entry x:Name="entConfirm" Placeholder="Confirm password" Text="{Binding Password}"
+                               PlaceholderColor="#1abc9c"
+                               IsPassword="True" />
+                    </Border>
+                    <Label x:Name="errlblComfirm" Style="{StaticResource ErrorLabel}" />
+                </VerticalStackLayout>
+                <VerticalStackLayout Grid.Row="9">
+                    <Button Text="SIGN UP"
+                            BackgroundColor="#1abc9c"
+                            TextColor="White"
+                            CornerRadius="5"
+                            Margin="5,0" />
+                    <Label x:Name="errlblAll"
+                           Style="{StaticResource ErrorLabel}" />
+                </VerticalStackLayout>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</ContentPage>
